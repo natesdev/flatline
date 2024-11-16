@@ -12,9 +12,9 @@ public:
     std::vector<std::string> getColumns(std::string CSVPath);
     std::vector<std::vector<std::string>> getRows(std::string CSVPath);
     int mergeCSVs();
-    int setMods(std::vector<Mod> mods)
+    int setInputFiles(std::vector<std::string> inputFiles)
     {
-        this->mods = mods;
+        this->inputFiles = inputFiles;
         return 0;
     }
     int setOutputFolder(std::string outputFolder)
@@ -27,13 +27,13 @@ public:
         this->CSVPaths = CSVPaths;
         return 0;
     }
+    int getColumnIndex(std::string CSVPath, std::string columnName);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
+    std::vector<std::string> inputFiles;
     std::string outputFolder;
-    std::vector<Mod> mods;
     std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths;
-
 };
 
 #endif

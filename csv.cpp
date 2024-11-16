@@ -6,14 +6,23 @@
 #include <string>
 #include <fstream>
 
-/* Splits a string by a delimiter and returns a vector of strings */
 int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
 {
     std::vector<std::string> words;
     std::string word = "";
+    bool inQuotes = false;
+
     for (char c : text)
     {
-        if (c == delimiter)
+        if (c == '"' && !inQuotes)
+        {
+            inQuotes = true;
+        }
+        else if (c == '"' && inQuotes)
+        {
+            inQuotes = false;
+        }
+        else if (c == delimiter && !inQuotes)
         {
             words.push_back(word);
             word = "";
@@ -23,7 +32,12 @@ int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char 
             word += c;
         }
     }
-    words.push_back(word);
+
+    if (!word.empty())
+    {
+        words.push_back(word);
+    }
+
     ptr = words;
     return 0;
 }
@@ -61,15 +75,28 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     return rows;
 }
 
+int CSVHandler::getColumnIndex(std::string CSVPath, std::string columnName)
+{
+    std::vector<std::string> columns = getColumns(CSVPath);
+    for (int i = 0; i < columns.size(); i++)
+    {
+        if (columns[i] == columnName)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int CSVHandler::mergeCSVs()
 {
-    for (const auto &mod : mods)
+    for (const auto &inputFile : inputFiles)
     {
         for (const auto &[CSVFolder, CSVFiles] : CSVPaths)
         {
             for (const std::string &CSVFile : CSVFiles)
             {
-                std::string input = mod.path + "/" + CSVFolder + "/" + CSVFile;
+                std::string input = inputFile + "/" + CSVFolder + "/" + CSVFile;
                 std::string output = outputFolder + "/" + CSVFolder + "/" + CSVFile;
                 std::vector<std::vector<std::string>> inputRows = getRows(input);
                 std::vector<std::vector<std::string>> outputRows = getRows(output);
@@ -93,6 +120,6 @@ int CSVHandler::mergeCSVs()
             }
         }
     }
-    
+
     return 0;
 }
