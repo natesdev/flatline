@@ -27,7 +27,7 @@ public:
         this->CSVPaths = CSVPaths;
         return 0;
     }
-    int getColumnIndex(std::string CSVPath, std::string columnName);
+    int getColumnIndex(std::vector<std::string> columns, std::string columnName);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);

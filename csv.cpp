@@ -75,9 +75,8 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     return rows;
 }
 
-int CSVHandler::getColumnIndex(std::string CSVPath, std::string columnName)
+int CSVHandler::getColumnIndex(std::vector<std::string> columns, std::string columnName)
 {
-    std::vector<std::string> columns = getColumns(CSVPath);
     for (int i = 0; i < columns.size(); i++)
     {
         if (columns[i] == columnName)
