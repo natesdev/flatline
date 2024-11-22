@@ -22,8 +22,6 @@ public:
     int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
     int getColumnIndex(std::vector<std::string> columns, std::string columnName);
     int getRowIndex(std::vector<std::vector<std::string>> rows, std::string rowName);
-    int removeColumn(CSV csv, int index);
-    int removeRow(CSV csv, int index);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);

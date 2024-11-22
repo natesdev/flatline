@@ -181,8 +181,3 @@ int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
 
     return 0;
 }
-
-int CSVHandler::removeRow(CSV csv, int index)
-{
-
-}
