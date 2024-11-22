@@ -143,5 +143,13 @@ int CSVHandler::appendRow(std::string CSVPath, std::vector<std::string> row)
     file.close();
 
     return 0;
+}
 
+int CSVHandler::appendRows(std::string CSVPath, std::vector<std::vector<std::string>> rows)
+{
+    for (const auto &row : rows)
+    {
+        appendRow(CSVPath, row);
+    }
+    return 0;
 }

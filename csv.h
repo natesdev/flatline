@@ -14,6 +14,7 @@ public:
     int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
     int getColumnIndex(std::vector<std::string> columns, std::string columnName);
     int appendRow(std::string CSVPath, std::vector<std::string> row);
+    int appendRows(std::string CSVPath, std::vector<std::vector<std::string>> rows);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
