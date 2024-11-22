@@ -125,3 +125,23 @@ int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std
 
     return 0;
 }
+
+int CSVHandler::appendRow(std::string CSVPath, std::vector<std::string> row)
+{
+    std::fstream file(CSVPath, std::ios::app);
+    std::string line;
+
+    for (size_t i = 0; i < row.size(); ++i)
+    {
+        file << row[i];
+        if (i < row.size() - 1)
+        {
+            file << ",";
+        }
+    }
+    file << std::endl;
+    file.close();
+
+    return 0;
+
+}
