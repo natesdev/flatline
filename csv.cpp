@@ -153,3 +153,36 @@ int CSVHandler::appendRows(std::string CSVPath, std::vector<std::vector<std::str
     }
     return 0;
 }
+
+int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
+{
+    std::ofstream file(CSVPath);
+    for (size_t i = 0; i < csv.columns.size(); ++i)
+    {
+        file << csv.columns[i];
+        if (i < csv.columns.size() - 1)
+        {
+            file << ",";
+        }
+    }
+
+    file << std::endl;
+
+    for (const auto &row : csv.rows)
+    {
+        for (size_t i = 0; i < row.size(); ++i)
+        {
+            file << row[i];
+            if (i < row.size() - 1)
+            {
+                file << ",";
+            }
+        }
+        file << std::endl;
+    }
+
+    file.close();
+
+    return 0;
+}
+
