@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 
+/* Splits a string by a delimiter and returns a vector of strings */
 int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
 {
     std::vector<std::string> words;
@@ -75,6 +76,7 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     return rows;
 }
 
+/* Get column index from column name */
 int CSVHandler::getColumnIndex(std::vector<std::string> columns, std::string columnName)
 {
     for (int i = 0; i < columns.size(); i++)
@@ -87,15 +89,16 @@ int CSVHandler::getColumnIndex(std::vector<std::string> columns, std::string col
     return -1;
 }
 
-int CSVHandler::mergeCSVs()
+/* Merges multiple CSVs together */
+int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths)
 {
-    for (const auto &inputFile : inputFiles)
+    for (const auto &folder : inputFolder)
     {
         for (const auto &[CSVFolder, CSVFiles] : CSVPaths)
         {
             for (const std::string &CSVFile : CSVFiles)
             {
-                std::string input = inputFile + "/" + CSVFolder + "/" + CSVFile;
+                std::string input = inputFolder + "/" + CSVFolder + "/" + CSVFile;
                 std::string output = outputFolder + "/" + CSVFolder + "/" + CSVFile;
                 std::vector<std::vector<std::string>> inputRows = getRows(input);
                 std::vector<std::vector<std::string>> outputRows = getRows(output);

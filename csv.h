@@ -11,29 +11,11 @@ class CSVHandler
 public:
     std::vector<std::string> getColumns(std::string CSVPath);
     std::vector<std::vector<std::string>> getRows(std::string CSVPath);
-    int mergeCSVs();
-    int setInputFiles(std::vector<std::string> inputFiles)
-    {
-        this->inputFiles = inputFiles;
-        return 0;
-    }
-    int setOutputFolder(std::string outputFolder)
-    {
-        this->outputFolder = outputFolder;
-        return 0;
-    }
-    int setCSVPaths(std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths)
-    {
-        this->CSVPaths = CSVPaths;
-        return 0;
-    }
+    int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
     int getColumnIndex(std::vector<std::string> columns, std::string columnName);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
-    std::vector<std::string> inputFiles;
-    std::string outputFolder;
-    std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths;
 };
 
 #endif
