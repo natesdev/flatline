@@ -86,7 +86,19 @@ int CSVHandler::getColumnIndex(std::vector<std::string> columns, std::string col
             return i;
         }
     }
-    return -1;
+    return 1;
+}
+
+int CSVHandler::getRowIndex(std::vector<std::vector<std::string>> rows, std::string rowName)
+{
+    for (int i = 0; i < rows.size(); i++)
+    {
+        if (rows[i][0] == rowName)
+        {
+            return i;
+        }
+    }
+    return 1;
 }
 
 /* Merges multiple CSVs together */
@@ -126,32 +138,16 @@ int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std
     return 0;
 }
 
-int CSVHandler::appendRow(std::string CSVPath, std::vector<std::string> row)
+CSV CSVHandler::readCSV(std::string CSVPath)
 {
-    std::fstream file(CSVPath, std::ios::app);
-    std::string line;
+    auto rows = getRows(CSVPath);
+    auto columns = getColumns(CSVPath);
 
-    for (size_t i = 0; i < row.size(); ++i)
-    {
-        file << row[i];
-        if (i < row.size() - 1)
-        {
-            file << ",";
-        }
-    }
-    file << std::endl;
-    file.close();
+    CSV csv;
+    csv.columns = columns;
+    csv.rows = rows;
 
-    return 0;
-}
-
-int CSVHandler::appendRows(std::string CSVPath, std::vector<std::vector<std::string>> rows)
-{
-    for (const auto &row : rows)
-    {
-        appendRow(CSVPath, row);
-    }
-    return 0;
+    return csv;
 }
 
 int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
@@ -180,9 +176,13 @@ int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
         }
         file << std::endl;
     }
-
+    
     file.close();
 
     return 0;
 }
 
+int CSVHandler::removeRow(CSV csv, int index)
+{
+
+}
