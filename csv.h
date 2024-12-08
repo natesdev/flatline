@@ -13,7 +13,6 @@ struct CSV
     std::string path;
 
     int getColumnIndex(const std::string &columnName);
-
     int getRowIndex(const std::string &rowName);
 
     int writeCSV();
@@ -22,15 +21,14 @@ struct CSV
 class CSVHandler
 {
 public:
-    // Deprecated use readCSV instead
-    std::vector<std::string> getColumns(std::string CSVPath);
-    std::vector<std::vector<std::string>> getRows(std::string CSVPath);
     CSV readCSV(std::string CSVPath);
     int writeCSV(std::string CSVPath, CSV csv);
     int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
+    std::vector<std::string> getColumns(std::string CSVPath);
+    std::vector<std::vector<std::string>> getRows(std::string CSVPath);
 };
 
 #endif

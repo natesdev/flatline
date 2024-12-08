@@ -71,6 +71,16 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     return rows;
 }
 
+CSV CSVHandler::readCSV(std::string CSVPath)
+{
+    auto rows = getRows(CSVPath);
+    auto columns = getColumns(CSVPath);
+    CSV csv;
+    csv.columns = columns;
+    csv.rows = rows;
+    return csv;
+}
+
 /* Merges multiple CSVs together */
 int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths)
 {
