@@ -10,30 +10,13 @@ struct CSV
 {
     std::vector<std::string> columns;
     std::vector<std::vector<std::string>> rows;
+    std::string path;
 
-    int getColumnIndex(const std::string &columnName)
-    {
-        for (size_t i = 0; i < columns.size(); ++i)
-        {
-            if (columns[i] == columnName)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
+    int getColumnIndex(const std::string &columnName);
 
-    int getRowIndex(const std::string &rowName)
-    {
-        for (size_t i = 0; i < rows.size(); ++i)
-        {
-            if (!rows[i].empty() && rows[i][0] == rowName)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
+    int getRowIndex(const std::string &rowName);
+
+    int writeCSV();
 };
 
 class CSVHandler

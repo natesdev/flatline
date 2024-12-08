@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 /* Splits a string by a delimiter and returns a vector of strings */
 int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
@@ -19,7 +20,9 @@ int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char 
 
     for (char c : text)
     {
-        if (c == '"' and inQuotes) {}
+        if (c == '"' and inQuotes)
+        {
+        }
         else if (c == delimiter)
         {
             words.push_back(word);
@@ -105,25 +108,13 @@ int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std
     return 0;
 }
 
-CSV CSVHandler::readCSV(std::string CSVPath)
+int CSV::writeCSV()
 {
-    auto rows = getRows(CSVPath);
-    auto columns = getColumns(CSVPath);
-
-    CSV csv;
-    csv.columns = columns;
-    csv.rows = rows;
-
-    return csv;
-}
-
-int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
-{
-    std::ofstream file(CSVPath);
-    for (size_t i = 0; i < csv.columns.size(); ++i)
+    std::ofstream file(path);
+    for (size_t i = 0; i < columns.size(); ++i)
     {
-        file << csv.columns[i];
-        if (i < csv.columns.size() - 1)
+        file << columns[i];
+        if (i < columns.size() - 1)
         {
             file << ",";
         }
@@ -131,7 +122,7 @@ int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
 
     file << std::endl;
 
-    for (const auto &row : csv.rows)
+    for (const auto &row : rows)
     {
         for (size_t i = 0; i < row.size(); ++i)
         {
@@ -149,3 +140,26 @@ int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
     return 0;
 }
 
+int CSV::getRowIndex(const std::string &rowName)
+{
+    for (size_t i = 0; i < rows.size(); ++i)
+    {
+        if (!rows[i].empty() && rows[i][0] == rowName)
+        {
+            return i;
+        }
+    }
+    return 1;
+}
+
+int CSV::getColumnIndex(const std::string &columnName)
+{
+    for (size_t i = 0; i < columns.size(); ++i)
+    {
+        if (columns[i] == columnName)
+        {
+            return i;
+        }
+    }
+    return 1;
+}
