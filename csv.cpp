@@ -12,18 +12,15 @@ int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char 
     std::vector<std::string> words;
     std::string word = "";
     bool inQuotes = false;
+    if (text[0] == '"')
+    {
+        inQuotes = true;
+    }
 
     for (char c : text)
     {
-        if (c == '"' && !inQuotes)
-        {
-            inQuotes = true;
-        }
-        else if (c == '"' && inQuotes)
-        {
-            inQuotes = false;
-        }
-        else if (c == delimiter && !inQuotes)
+        if (c == '"' and inQuotes) {}
+        else if (c == delimiter)
         {
             words.push_back(word);
             word = "";
@@ -33,12 +30,7 @@ int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char 
             word += c;
         }
     }
-
-    if (!word.empty())
-    {
-        words.push_back(word);
-    }
-
+    words.push_back(word);
     ptr = words;
     return 0;
 }
@@ -74,31 +66,6 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     }
 
     return rows;
-}
-
-/* Get column index from column name */
-int CSVHandler::getColumnIndex(std::vector<std::string> columns, std::string columnName)
-{
-    for (int i = 0; i < columns.size(); i++)
-    {
-        if (columns[i] == columnName)
-        {
-            return i;
-        }
-    }
-    return 1;
-}
-
-int CSVHandler::getRowIndex(std::vector<std::vector<std::string>> rows, std::string rowName)
-{
-    for (int i = 0; i < rows.size(); i++)
-    {
-        if (rows[i][0] == rowName)
-        {
-            return i;
-        }
-    }
-    return 1;
 }
 
 /* Merges multiple CSVs together */
@@ -176,8 +143,9 @@ int CSVHandler::writeCSV(std::string CSVPath, CSV csv)
         }
         file << std::endl;
     }
-    
+
     file.close();
 
     return 0;
 }
+
