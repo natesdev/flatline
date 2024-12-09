@@ -22,7 +22,6 @@ class CSVHandler
 {
 public:
     CSV readCSV(std::string CSVPath);
-    int writeCSV(std::string CSVPath, CSV csv);
     int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
 
 private:
