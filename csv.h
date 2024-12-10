@@ -17,6 +17,12 @@ public:
 
     std::string operator[](const std::string &columnName);
     std::string operator[](const int &columnIndex);
+
+    Row& operator=(const Row &other);
+
+    Row(std::initializer_list<std::string> initList) : row(initList) {}
+
+    Row(std::vector<std::string> row) : row(row) {}
 };
 
 class CSV
