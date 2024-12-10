@@ -173,3 +173,13 @@ int CSV::getColumnIndex(const std::string &columnName)
     }
     return 1;
 }
+
+std::string &CSV::at(size_t rowIndex, const std::string &columnName)
+{
+    int colIndex = getColumnIndex(columnName);
+    if (rowIndex >= rows.size() || colIndex >= static_cast<int>(rows[rowIndex].size()))
+    {
+        throw std::out_of_range("Invalid row or column index");
+    }
+    return rows[rowIndex][colIndex];
+}

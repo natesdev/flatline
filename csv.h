@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "mod.h"
+#include <stdexcept>
 
 struct CSV
 {
@@ -16,6 +16,7 @@ struct CSV
     int getRowIndex(const std::string &rowName);
 
     int writeCSV();
+    std::string &at(size_t rowIndex, const std::string &columnName);
 };
 
 class CSVHandler
