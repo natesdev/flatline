@@ -6,17 +6,30 @@
 #include <map>
 #include <stdexcept>
 
-struct CSV
+class CSV;
+class Row
 {
+public:
+    std::vector<std::string> row;
+    CSV *csv;
+
+    Row(CSV *csv, std::vector<std::string> row) : csv(csv), row(row) {}
+
+    std::string operator[](const std::string &columnName);
+    std::string operator[](const int &columnIndex);
+};
+
+class CSV
+{
+public:
     std::vector<std::string> columns;
-    std::vector<std::vector<std::string>> rows;
+    std::vector<Row> rows;
     std::string path;
 
     int getColumnIndex(const std::string &columnName);
     int getRowIndex(const std::string &rowName);
 
     int writeCSV();
-    std::string &at(size_t rowIndex, const std::string &columnName);
 };
 
 class CSVHandler
