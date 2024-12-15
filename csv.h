@@ -41,7 +41,7 @@ public:
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
     std::vector<std::string> getColumns(std::string CSVPath);
-    std::vector<Row> CSV::getRows(std::string CSVPath);
+    std::vector<Row> getRows(std::string CSVPath);
 };
 
 #endif
