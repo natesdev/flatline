@@ -7,8 +7,7 @@
 #include <fstream>
 #include <filesystem>
 
-/* Splits a string by a delimiter and returns a vector of strings */
-int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
+int CSV::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
 {
     std::vector<std::string> words;
     std::string word = "";
@@ -38,8 +37,7 @@ int CSVHandler::splitText(std::vector<std::string> &ptr, std::string text, char 
     return 0;
 }
 
-/* Returns all columns inside of a CSV file */
-std::vector<std::string> CSVHandler::getColumns(std::string CSVPath)
+std::vector<std::string> CSV::getColumns(std::string CSVPath)
 {
     std::fstream file;
     std::string str;
@@ -52,12 +50,11 @@ std::vector<std::string> CSVHandler::getColumns(std::string CSVPath)
     return splitString;
 }
 
-/* Returns all rows inside of CSV file */
-std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
+std::vector<Row> CSV::getRows(std::string CSVPath)
 {
     std::fstream file(CSVPath);
     std::string line;
-    std::vector<std::vector<std::string>> rows;
+    std::vector<Row> rows;
 
     std::getline(file, line);
 
@@ -65,13 +62,13 @@ std::vector<std::vector<std::string>> CSVHandler::getRows(std::string CSVPath)
     {
         std::vector<std::string> rowData;
         splitText(rowData, line, ',');
-        rows.push_back(rowData);
+        rows.push_back(Row(this, rowData));
     }
 
     return rows;
 }
 
-CSV CSVHandler::readCSV(std::string CSVPath)
+CSV CSV::readCSV(std::string CSVPath)
 {
     auto rows = getRows(CSVPath);
     auto columns = getColumns(CSVPath);
@@ -79,45 +76,10 @@ CSV CSVHandler::readCSV(std::string CSVPath)
     csv.columns = columns;
     for (const auto &rowData : rows)
     {
-        csv.rows.push_back(Row(&csv, rowData));
+        csv.rows.push_back(rowData);
     }
     csv.path = CSVPath;
     return csv;
-}
-
-/* Merges multiple CSVs together */
-int CSVHandler::mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths)
-{
-    for (const auto &[CSVFolder, CSVFiles] : CSVPaths)
-    {
-        for (const std::string &CSVFile : CSVFiles)
-        {
-            std::string input = inputFolder + "/" + CSVFolder + "/" + CSVFile;
-            std::string output = outputFolder + "/" + CSVFolder + "/" + CSVFile;
-            std::vector<std::vector<std::string>> inputRows = getRows(input);
-            std::vector<std::vector<std::string>> outputRows = getRows(output);
-
-            for (const std::vector<std::string> &inputRow : inputRows)
-            {
-                bool found = false;
-                std::string identifier = inputRow[0];
-                for (const std::vector<std::string> &outputRow : outputRows)
-                {
-                    if (outputRow[0] == identifier)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    outputRows.push_back(inputRow);
-                }
-            }
-        }
-    }
-
-    return 0;
 }
 
 int CSV::writeCSV()

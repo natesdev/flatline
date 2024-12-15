@@ -18,7 +18,7 @@ public:
     std::string operator[](const std::string &columnName);
     std::string operator[](const int &columnIndex);
 
-    Row& operator=(const Row &other);
+    Row &operator=(const Row &other);
 
     Row(std::initializer_list<std::string> initList) : row(initList) {}
 
@@ -36,18 +36,12 @@ public:
     int getRowIndex(const std::string &rowName);
 
     int writeCSV();
-};
-
-class CSVHandler
-{
-public:
     CSV readCSV(std::string CSVPath);
-    int mergeCSVs(std::string inputFolder, std::string outputFolder, std::vector<std::pair<std::string, std::vector<std::string>>> CSVPaths);
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);
     std::vector<std::string> getColumns(std::string CSVPath);
-    std::vector<std::vector<std::string>> getRows(std::string CSVPath);
+    std::vector<Row> CSV::getRows(std::string CSVPath)
 };
 
 #endif
