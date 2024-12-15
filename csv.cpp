@@ -79,8 +79,9 @@ CSV CSVHandler::readCSV(std::string CSVPath)
     csv.columns = columns;
     for (const auto &rowData : rows)
     {
-        csv.rows.push_back(Row(&csv, rowData)); // Pass pointer to the CSV instance
+        csv.rows.push_back(Row(&csv, rowData));
     }
+    csv.path = CSVPath;
     return csv;
 }
 
@@ -145,7 +146,6 @@ int CSV::writeCSV()
         }
         file << std::endl;
     }
-
     file.close();
 
     return 0;
