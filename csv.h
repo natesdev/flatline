@@ -36,7 +36,10 @@ public:
     int getRowIndex(const std::string &rowName);
 
     int writeCSV();
-    CSV readCSV(std::string CSVPath);
+    int readCSV(std::string CSVPath);
+    CSV(std::string CSVPath);
+    CSV() {};
+
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);

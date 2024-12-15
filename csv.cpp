@@ -68,18 +68,12 @@ std::vector<Row> CSV::getRows(std::string CSVPath)
     return rows;
 }
 
-CSV CSV::readCSV(std::string CSVPath)
+int CSV::readCSV(std::string CSVPath)
 {
-    auto rows = getRows(CSVPath);
-    auto columns = getColumns(CSVPath);
-    CSV csv;
-    csv.columns = columns;
-    for (const auto &rowData : rows)
-    {
-        csv.rows.push_back(rowData);
-    }
-    csv.path = CSVPath;
-    return csv;
+    rows = getRows(CSVPath);
+    columns = getColumns(CSVPath);
+    path = CSVPath;
+    return 0;
 }
 
 int CSV::writeCSV()
@@ -135,6 +129,11 @@ int CSV::getColumnIndex(const std::string &columnName)
         }
     }
     return -1;
+}
+
+CSV::CSV(std::string CSVPath)
+{
+    readCSV(CSVPath);
 }
 
 std::string Row::operator[](const std::string &columnName)
