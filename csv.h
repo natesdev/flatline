@@ -38,6 +38,7 @@ public:
     int writeCSV();
     int readCSV(std::string CSVPath);
     int addRow(const std::vector<std::string> &rowData);
+    void addColumn(const std::string &columnName);
 
     CSV(std::string CSVPath);
     CSV() {};

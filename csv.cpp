@@ -19,10 +19,11 @@ int CSV::splitText(std::vector<std::string> &ptr, std::string text, char delimit
 
     for (char c : text)
     {
-        if (c == '"' and inQuotes)
+        if (c == '"')
         {
+            inQuotes = !inQuotes;
         }
-        else if (c == delimiter)
+        else if (c == delimiter && !inQuotes)
         {
             words.push_back(word);
             word = "";
@@ -50,8 +51,10 @@ std::vector<std::string> CSV::getColumns(std::string CSVPath)
         newFile.close();
         file.open(CSVPath, std::ios::in | std::ios::out | std::ios::app);
     }
-    std::getline(file, str);
-    splitText(splitString, str, ',');
+    if (std::getline(file, str) && !str.empty())
+    {
+        splitText(splitString, str, ',');
+    }
 
     return splitString;
 }
@@ -85,9 +88,13 @@ int CSV::readCSV(std::string CSVPath)
 int CSV::writeCSV()
 {
     std::ofstream file(path);
+
     for (size_t i = 0; i < columns.size(); ++i)
     {
-        file << columns[i];
+        if (!columns[i].empty())
+        {
+            file << columns[i];
+        }
         if (i < columns.size() - 1)
         {
             file << ",";
@@ -121,6 +128,15 @@ int CSV::addRow(const std::vector<std::string> &rowData)
     }
     rows.push_back(Row(this, rowData));
     return rows.size() - 1;
+}
+
+void CSV::addColumn(const std::string &columnName)
+{
+    columns.push_back(columnName);
+    for (auto &row : rows)
+    {
+        row.row.push_back("");
+    }
 }
 
 int CSV::getRowIndex(const std::string &rowName)
@@ -166,6 +182,7 @@ std::string Row::operator[](const std::string &columnName)
     }
     return row[index];
 }
+
 Row &Row::operator=(const Row &other)
 {
     if (this == &other)
