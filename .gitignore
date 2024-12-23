@@ -2,3 +2,4 @@
 libcsv.a
 .vscode
 *.out
+example.csv
