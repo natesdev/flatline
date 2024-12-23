@@ -183,6 +183,11 @@ std::string &Row::operator[](const std::string &columnName)
     return row[index];
 }
 
+std::string &Row::operator[](const int &index)
+{
+    return row[index];
+}
+
 Row &Row::operator=(const Row &other)
 {
     if (this == &other)
