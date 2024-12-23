@@ -173,7 +173,7 @@ CSV::CSV(std::string CSVPath)
     readCSV(CSVPath);
 }
 
-std::string Row::operator[](const std::string &columnName)
+std::string &Row::operator[](const std::string &columnName)
 {
     int index = csv->getColumnIndex(columnName);
     if (index == -1)

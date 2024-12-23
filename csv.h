@@ -15,8 +15,8 @@ public:
 
     Row(CSV *csv, std::vector<std::string> row) : csv(csv), row(row) {}
 
-    std::string operator[](const std::string &columnName);
     std::string operator[](const int &columnIndex);
+    std::string &operator[](const std::string &columnName);
 
     Row &operator=(const Row &other);
 
