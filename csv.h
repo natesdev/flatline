@@ -37,9 +37,10 @@ public:
 
     int writeCSV();
     int readCSV(std::string CSVPath);
+    int addRow(const std::vector<std::string> &rowData);
+
     CSV(std::string CSVPath);
     CSV() {};
-
 
 private:
     int splitText(std::vector<std::string> &ptr, std::string text, char delimiter);

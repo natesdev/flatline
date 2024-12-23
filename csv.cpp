@@ -43,7 +43,13 @@ std::vector<std::string> CSV::getColumns(std::string CSVPath)
     std::string str;
     std::vector<std::string> splitString;
 
-    file.open(CSVPath, std::ios::in);
+    file.open(CSVPath, std::ios::in | std::ios::out | std::ios::app);
+    if (!file.is_open())
+    {
+        std::ofstream newFile(CSVPath);
+        newFile.close();
+        file.open(CSVPath, std::ios::in | std::ios::out | std::ios::app);
+    }
     std::getline(file, str);
     splitText(splitString, str, ',');
 
@@ -107,6 +113,16 @@ int CSV::writeCSV()
     return 0;
 }
 
+int CSV::addRow(const std::vector<std::string> &rowData)
+{
+    if (rowData.size() != columns.size())
+    {
+        throw std::invalid_argument("Row size does not match the number of columns");
+    }
+    rows.push_back(Row(this, rowData));
+    return rows.size() - 1;
+}
+
 int CSV::getRowIndex(const std::string &rowName)
 {
     for (size_t i = 0; i < rows.size(); ++i)
@@ -133,6 +149,11 @@ int CSV::getColumnIndex(const std::string &columnName)
 
 CSV::CSV(std::string CSVPath)
 {
+    if (!std::filesystem::exists(CSVPath))
+    {
+        std::ofstream newFile(CSVPath);
+        newFile.close();
+    }
     readCSV(CSVPath);
 }
 
@@ -145,12 +166,6 @@ std::string Row::operator[](const std::string &columnName)
     }
     return row[index];
 }
-
-std::string Row::operator[](const int &columnIndex)
-{
-    return row[columnIndex];
-}
-
 Row &Row::operator=(const Row &other)
 {
     if (this == &other)
@@ -159,5 +174,6 @@ Row &Row::operator=(const Row &other)
     }
 
     row = other.row;
+    csv = other.csv;
     return *this;
 }
