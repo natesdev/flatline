@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -c
-TARGET_LIB = libcsv.a
+TARGET_LIB = libflatline.a
 INCLUDE_DIR = /usr/include
 LIB_DIR = /usr/lib
 

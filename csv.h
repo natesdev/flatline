@@ -1,5 +1,5 @@
-#ifndef CSV_H
-#define CSV_H
+#ifndef FLATLINE_H
+#define FLATLINE_H
 
 #include <vector>
 #include <string>
