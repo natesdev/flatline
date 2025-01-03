@@ -177,7 +177,7 @@ std::string &Row::operator[](const std::string &columnName)
     int index = csv->getColumnIndex(columnName);
     if (index == -1)
     {
-        throw std::out_of_range("Column " + columnName + " not found inside" + path);
+        throw std::out_of_range("Column " + columnName + " not found inside" + csv->path);
     }
     return row[index];
 }
