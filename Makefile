@@ -13,7 +13,7 @@ $(TARGET_LIB): csv.o
 	ar rcs $(TARGET_LIB) csv.o
 
 install:
-	cp csv.h $(INCLUDE_DIR)/
+	cp csv.h $(INCLUDE_DIR)/flatline.h
 	cp $(TARGET_LIB) $(LIB_DIR)/
 
 clean:
