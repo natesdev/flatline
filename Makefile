@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -c
+CFLAGS = -c -fPIC
 TARGET_LIB = libflatline.a
 INCLUDE_DIR = /usr/include
 LIB_DIR = /usr/lib

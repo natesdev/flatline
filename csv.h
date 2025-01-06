@@ -31,15 +31,12 @@ public:
     std::vector<std::string> columns;
     std::vector<Row> rows;
     std::string path;
-
-    int getColumnIndex(const std::string &columnName);
-    int getRowIndex(const std::string &rowName);
-
     int writeCSV();
     int readCSV(std::string CSVPath);
     int addRow(const std::vector<std::string> &rowData);
     void addColumn(const std::string &columnName);
-
+    int getColumnIndex(const std::string &columnName);
+    int getRowIndex(const std::string &rowName);
     CSV(std::string CSVPath);
     CSV() {};
 

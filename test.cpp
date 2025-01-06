@@ -2,6 +2,7 @@
 #include <iostream>
 
 void writeTestCSV();
+void writeTestQuotedCSV();
 void test(std::string, std::string, int);
 
 int main()
@@ -12,6 +13,7 @@ int main()
     example.rows[0]["Name"] = "Jane";
     example.writeCSV();
     test(example.rows[0]["Name"], "Jane", 2);
+    test(example.columns[0], "Name", 3);
 
     return 0;
 }

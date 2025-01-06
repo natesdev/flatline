@@ -9,12 +9,8 @@
 int CSV::splitText(std::vector<std::string> &ptr, std::string text, char delimiter)
 {
     std::vector<std::string> words;
-    std::string word = "";
+    std::string word;
     bool inQuotes = false;
-    if (text[0] == '"')
-    {
-        inQuotes = true;
-    }
 
     for (char c : text)
     {
@@ -24,15 +20,25 @@ int CSV::splitText(std::vector<std::string> &ptr, std::string text, char delimit
         }
         else if (c == delimiter && !inQuotes)
         {
+            if (!word.empty() && word.front() == '"' && word.back() == '"')
+            {
+                word = word.substr(1, word.size() - 2);
+            }
             words.push_back(word);
-            word = "";
+            word.clear();
         }
         else
         {
             word += c;
         }
     }
+
+    if (!word.empty() && word.front() == '"' && word.back() == '"')
+    {
+        word = word.substr(1, word.size() - 2);
+    }
     words.push_back(word);
+
     ptr = words;
     return 0;
 }
