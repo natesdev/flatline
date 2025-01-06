@@ -6,14 +6,14 @@ LIB_DIR = /usr/lib
 
 all: $(TARGET_LIB)
 
-csv.o: csv.cpp
-	$(CC) $(CFLAGS) csv.cpp -o csv.o
+flatline.o: flatline.cpp
+	$(CC) $(CFLAGS) flatline.cpp -o flatline.o
 
-$(TARGET_LIB): csv.o
-	ar rcs $(TARGET_LIB) csv.o
+$(TARGET_LIB): flatline.o
+	ar rcs $(TARGET_LIB) flatline.o
 
 install:
-	cp csv.h $(INCLUDE_DIR)/flatline.h
+	cp flatline.h $(INCLUDE_DIR)/
 	cp $(TARGET_LIB) $(LIB_DIR)/
 
 clean:
